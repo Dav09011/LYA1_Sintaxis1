@@ -1,0 +1,5 @@
+# = Caracter
+include = Identificador
+< = OperadorRelacional
+{ = Inicio
+Error Sintaxis: Se espera un >
