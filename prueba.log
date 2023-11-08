@@ -1,5 +1,25 @@
 # = Caracter
 include = Identificador
 < = OperadorRelacional
-{ = Inicio
-Error Sintaxis: Se espera un >
+stdio = Identificador
+. = Caracter
+h = Identificador
+> = OperadorRelacional
+# = Caracter
+include = Identificador
+< = OperadorRelacional
+math = Identificador
+. = Caracter
+h = Identificador
+> = OperadorRelacional
+# = Caracter
+include = Identificador
+< = OperadorRelacional
+stdio = Identificador
+> = OperadorRelacional
+# = Caracter
+include = Identificador
+< = OperadorRelacional
+math = Identificador
+> = OperadorRelacional
+ = OperadorRelacional

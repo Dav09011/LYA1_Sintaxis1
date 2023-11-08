@@ -26,5 +26,16 @@ namespace LYA1_Sintaxis1
                 throw new Error("Sintaxis: Se espera un "+espera,log);
             }
         }
+        public void match(Tipos espera)
+        {
+            if (getClasificacion() == espera)
+            {
+                nextToken();
+            }
+            else
+            {
+                throw new Error("Sintaxis: Se espera un "+espera,log);
+            }
+        }
     }
 }

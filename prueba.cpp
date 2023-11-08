@@ -1,5 +1,4 @@
-#include< 
-{// Prueba de fuego
-x26=3.141592/**/+++/***/---/****/&&&|||===!!==//Test
-<<<>>>"Hola mundo";/*Cadena Vacia*/"";+=-=*=/=%=
-}"
+#include <stdio.h>
+#include <math.h>
+#include <stdio>
+#include <math>
