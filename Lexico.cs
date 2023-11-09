@@ -16,7 +16,7 @@ namespace LYA1_Sintaxis1
         int[,] TRAND =
         {
             //WS L	D	.	E	La	=	;	&	|	!	>	<	+	-	%	*	?	"	EOF	 /	EOL	{	}
-            {0, 1,  2,  27,  1,  27, 8,  10, 11, 12, 13, 16, 17, 19, 20, 22, 22, 24, 25, F,  28, 0, 32, 33}, //0
+            {0, 1,  2,  27, 1,  27, 8,  10, 11, 12, 13, 16, 17, 19, 20, 22, 22, 24, 25, F,  28, 0, 32, 33}, //0
             {F, 1,  1,  F,  1,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F}, //1
             {F, F,  2,  3,  5,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F,  F}, //2
             {E, E,  4,  E,  E,  E,  F,  F,  F,  F,  F,  F,  F,  E,  E,  F,  F,  F,  F,  F,  F,  F,  F,  F}, //3
@@ -191,8 +191,22 @@ namespace LYA1_Sintaxis1
                     throw new Error("Lexico: Se espera un \"", log);
                 }
             }
-            setContenido(buffer);
-            log.WriteLine(getContenido() + " = " + getClasificacion());
+            else
+            {
+                setContenido(buffer);
+                if (getClasificacion() == Tipos.Identificador)
+                {
+                    switch (getContenido())
+                    {
+                        case "char":
+                        case "int":
+                        case "float": 
+                            setClasificacion(Tipos.tipoDatos);
+                            break;
+                    }
+                }
+                log.WriteLine(getContenido() + " = " + getClasificacion());
+            }
         }
         public bool FinArchivo()
         {

@@ -13,7 +13,7 @@ namespace LYA1_Sintaxis1
             {
                 using (Lenguaje L = new Lenguaje())
                 {
-                    L.Libreria();
+                    L.Programa();
                     /* 
                     while (!L.FinArchivo())
                     {
