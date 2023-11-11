@@ -14,4 +14,7 @@ void main()
     printf("\n============");
     printf("\nRadio = ");
     scanf("%i");
+    printf("Tu resultado es: ",variable);
+    scanf("%d",&suma);
+    
 }

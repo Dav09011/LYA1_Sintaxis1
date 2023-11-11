@@ -122,20 +122,31 @@ namespace LYA1_Sintaxis1
             }
         }
         //Printf -> printf(cadena);
+        //Requerimiento 1: Printf -> printf(cadena(, Identificador)?);
         private void Printf()
         {
             match("printf");
             match("(");
             match(Tipos.Cadena);
+            if (getContenido() == ",")
+            {
+                match(",");
+                match(Tipos.Identificador);
+                //Printf();
+            }
             match(")");
             match(";");
         }
         //Scanf -> scanf(cadena);
+        //Requerimiento 2: Scanf -> scanf(cadena,&Identificador);
         private void Scanf()
         {
             match("scanf");
             match("(");
             match(Tipos.Cadena);
+            match(",");
+            match(Tipos.Caracter);
+            match(Tipos.Identificador);
             match(")");
             match(";");
         }
