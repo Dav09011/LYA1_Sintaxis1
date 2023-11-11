@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+/*
+    Requerimiento 1: Printf -> printf(cadena(, Identificador)?);
+    Requerimiento 2: Scanf -> scanf(cadena,&Identificador);
+*/
+
 namespace LYA1_Sintaxis1
 {
     public class Lenguaje : Sintaxis
@@ -44,15 +49,26 @@ namespace LYA1_Sintaxis1
                 Librerias();
             }
         }
-        //Variables -> tipo_dato Lista_identificadores; Variables?
+        //Variables -> tipoDato listaIdentificadores; Variables?
         private void Variables()
         {
-
+            match(Tipos.tipoDatos);
+            listaIdentificadores();
+            match(";");
+            if (getClasificacion() == Tipos.tipoDatos)
+            {
+                Variables();
+            }
         }
-        //listaIdentificadores -> identificador (,listaIdentificadores)?
+        //listaIdentificadores -> Identificador (,listaIdentificadores)?
         private void listaIdentificadores()
         {
-
+            match(Tipos.Identificador);
+            if (getContenido() == ",")
+            {
+                match(",");
+                listaIdentificadores();
+            }
         }
         //bloqueInstrucciones -> { listaIntrucciones? }
         private void bloqueInstrucciones()
@@ -73,11 +89,57 @@ namespace LYA1_Sintaxis1
                 ListaInstrucciones();
             }
         }
-        //Instruccion -> Printf | Scanf | If | While | do while | For | Switch | Asignacion
+        //Instruccion -> Printf | Scanf | If | While | do while | For | Asignacion
         private void Instruccion()
         {
-
+            if (getContenido() == "printf")
+            {
+                Printf();
+            }
+            else if (getContenido() == "scanf")
+            {
+                Scanf();
+            }
+            else if (getContenido() == "if")
+            {
+                If();
+            }
+            else if (getContenido() == "while")
+            {
+                While();
+            }
+            else if (getContenido() == "do")
+            {
+                Do();
+            }
+            else if (getContenido() == "for")
+            {
+                For();
+            }
+            else
+            {
+                Asignacion();
+            }
         }
+        //Printf -> printf(cadena);
+        private void Printf()
+        {
+            match("printf");
+            match("(");
+            match(Tipos.Cadena);
+            match(")");
+            match(";");
+        }
+        //Scanf -> scanf(cadena);
+        private void Scanf()
+        {
+            match("scanf");
+            match("(");
+            match(Tipos.Cadena);
+            match(")");
+            match(";");
+        }
+
         //Asignacion -> identificador = cadena | Expresion;
         private void Asignacion()
         {
@@ -110,16 +172,6 @@ namespace LYA1_Sintaxis1
         }
         //If -> if(Condicion) bloque de instrucciones (else bloque de instrucciones)?
         private void If()
-        {
-
-        }
-        //Printf -> printf(cadena);
-        private void Printf()
-        {
-
-        }
-        //Scanf -> scanf(cadena);
-        private void Scanf()
         {
 
         }

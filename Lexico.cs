@@ -203,6 +203,14 @@ namespace LYA1_Sintaxis1
                         case "float": 
                             setClasificacion(Tipos.tipoDatos);
                             break;
+                        case "while":
+                        case "do":
+                        case "for":
+                        case "if":
+                        case "else":
+                            setClasificacion(Tipos.reservada);
+                            break;
+
                     }
                 }
                 log.WriteLine(getContenido() + " = " + getClasificacion());
