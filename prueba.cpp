@@ -16,5 +16,6 @@ void main()
     scanf("%i");
     printf("Tu resultado es: ",variable);
     scanf("%d",&suma);
+
     
 }

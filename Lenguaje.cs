@@ -144,9 +144,12 @@ namespace LYA1_Sintaxis1
             match("scanf");
             match("(");
             match(Tipos.Cadena);
-            match(",");
-            match(Tipos.Caracter);
-            match(Tipos.Identificador);
+            if (getContenido() == ",")
+            {
+                match(",");
+                match(Tipos.Caracter);
+                match(Tipos.Identificador);
+            }
             match(")");
             match(";");
         }
