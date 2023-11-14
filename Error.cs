@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace LYA1_Sintaxis1
 {
-    public class Error : Exception
+    public class Error : Exception 
     {
         public Error(string mensaje, StreamWriter log) : base(mensaje)
         {
@@ -14,8 +14,9 @@ namespace LYA1_Sintaxis1
         public Error(string mensaje) : base(mensaje)
         {
         }
-        public Error(string mensaje, int linea) : base(mensaje + " en la linea "+linea)
+        public Error(string mensaje, StreamWriter log, int linea) : base(mensaje + " en la linea "+linea)
         {
+            log.WriteLine("Error "+mensaje+"en la linea "+linea);
         }
 
     }

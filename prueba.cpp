@@ -10,19 +10,19 @@ char  w;
 
 void main()
 {
-    printf("\nHola mundo");
+    printf("\nHola mundo",a);
     printf("\n============");
     printf("\nRadio = ");
-    scanf("%i");
+    scanf("%i",&radio);
+    
 
-    radio = (3+5)*8-(10-4)/2;
+    radio = 3+5;
 
     z = (a+b)*c;
 
     if ((3+5)*8 > z)
-    {
         printf("\nEs mayor");
-    }
+    
 
     if (radio % 2 == 0)
     {
@@ -34,4 +34,6 @@ void main()
 
     multiplicacion *= (3+5)*8-(10-4)/2;
     suma += (8+9)*4-(2-1)/3;
+    if (2==2)
+        a=0;
 }

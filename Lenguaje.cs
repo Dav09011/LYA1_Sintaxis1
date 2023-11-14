@@ -18,12 +18,11 @@ namespace LYA1_Sintaxis1
 {
     public class Lenguaje : Sintaxis
     {
-        public Lenguaje()
-        {
-        }
-        public Lenguaje(string nombre) : base(nombre)
-        {
-        }
+        public Lenguaje() { }
+
+        public Lenguaje(string nombre)
+            : base(nombre) { }
+
         //Programa  -> Librerias? Variables? Main
         public void Programa()
         {
@@ -37,6 +36,7 @@ namespace LYA1_Sintaxis1
             }
             Main();
         }
+
         //Librerias -> #include<identificador(.h)?> Librerias?
         private void Librerias()
         {
@@ -55,6 +55,7 @@ namespace LYA1_Sintaxis1
                 Librerias();
             }
         }
+
         //Variables -> tipoDato listaIdentificadores; Variables?
         private void Variables()
         {
@@ -66,6 +67,7 @@ namespace LYA1_Sintaxis1
                 Variables();
             }
         }
+
         //listaIdentificadores -> Identificador (,listaIdentificadores)?
         private void listaIdentificadores()
         {
@@ -76,6 +78,7 @@ namespace LYA1_Sintaxis1
                 listaIdentificadores();
             }
         }
+
         //bloqueInstrucciones -> { listaIntrucciones? }
         private void bloqueInstrucciones()
         {
@@ -86,6 +89,7 @@ namespace LYA1_Sintaxis1
             }
             match("}");
         }
+
         //ListaInstrucciones -> Instruccion ListaInstrucciones?
         private void ListaInstrucciones()
         {
@@ -95,6 +99,7 @@ namespace LYA1_Sintaxis1
                 ListaInstrucciones();
             }
         }
+
         //Instruccion -> Printf | Scanf | If | While | do while | For | Asignacion
         private void Instruccion()
         {
@@ -127,10 +132,11 @@ namespace LYA1_Sintaxis1
                 Asignacion();
             }
         }
+
         //Printf -> printf(cadena);
         private void Printf()
         {
-             match("printf");
+            match("printf");
             match("(");
             match(Tipos.Cadena);
             if (getContenido() == ",")
@@ -141,18 +147,18 @@ namespace LYA1_Sintaxis1
             match(")");
             match(";");
         }
+
         //Scanf -> scanf(cadena);
         private void Scanf()
         {
             match("scanf");
             match("(");
             match(Tipos.Cadena);
-            if (getContenido() == ",")
-            {
-                match(",");
-                match(Tipos.Caracter);
-                match(Tipos.Identificador);
-            }
+           
+            match(",");
+            match(Tipos.Caracter);
+            match(Tipos.Identificador);
+            
             match(")");
             match(";");
         }
@@ -168,19 +174,16 @@ namespace LYA1_Sintaxis1
             if (getClasificacion() == Tipos.OperadorTermino)
             {
                 match(Tipos.OperadorTermino);
-                
             }
             else if (getClasificacion() == Tipos.IncrementoTermino)
             {
                 match(Tipos.IncrementoTermino);
                 Expresion();
-
             }
             else if (getClasificacion() == Tipos.IncrementoFactor)
             {
                 match(Tipos.IncrementoFactor);
                 Expresion();
-
             }
             else
             {
@@ -189,7 +192,8 @@ namespace LYA1_Sintaxis1
             }
             match(";");
         }
-        //If -> if (Condicion) instruccion | bloqueInstrucciones 
+
+        //If -> if (Condicion) instruccion | bloqueInstrucciones
         //      (else instruccion | bloqueInstrucciones)?
         //Requerimiento 4: Agregar el else optativo al if
         private void If()
@@ -206,16 +210,22 @@ namespace LYA1_Sintaxis1
             {
                 Instruccion();
             }
-            
+
             if (getContenido() == "else")
             {
                 match("else");
-                bloqueInstrucciones();
+                if(getContenido() == "{")
+                {
+                    bloqueInstrucciones();
+                }
+                else
+                {
+                    Instruccion();
+                }
             }
-            else{
-                Instruccion();
-            }
+            
         }
+
         //Condicion -> Expresion operadoRelacional Expresion
         private void Condicion()
         {
@@ -223,26 +233,19 @@ namespace LYA1_Sintaxis1
             match(Tipos.OperadorRelacional);
             Expresion();
         }
+
         //While -> while(Condicion) bloque de instrucciones | instruccion
-        private void While()
-        {
+        private void While() { }
 
-        }
         //Do -> do bloque de instrucciones | intruccion while(Condicion)
-        private void Do()
-        {
+        private void Do() { }
 
-        }
-        //For -> for(Asignacion Condicion; Incremento) Bloque de instruccones | Intruccion 
-        private void For()
-        {
+        //For -> for(Asignacion Condicion; Incremento) Bloque de instruccones | Intruccion
+        private void For() { }
 
-        }
         //Incremento -> Identificador ++ | --
-        private void Incremento()
-        {
+        private void Incremento() { }
 
-        }
         //Main      -> void main() bloqueInstrucciones
         private void Main()
         {
@@ -252,12 +255,14 @@ namespace LYA1_Sintaxis1
             match(")");
             bloqueInstrucciones();
         }
+
         //Expresion -> Termino MasTermino
         private void Expresion()
         {
             Termino();
             MasTermino();
         }
+
         //MasTermino -> (OperadorTermino Termino)?
         private void MasTermino()
         {
@@ -267,12 +272,14 @@ namespace LYA1_Sintaxis1
                 Termino();
             }
         }
+
         //Termino -> Factor PorFactor
         private void Termino()
         {
             Factor();
             PorFactor();
         }
+
         //PorFactor -> (OperadorFactor Factor)?
         private void PorFactor()
         {
@@ -282,6 +289,7 @@ namespace LYA1_Sintaxis1
                 Factor();
             }
         }
+
         //Factor -> numero | identificador | (Expresion)
         private void Factor()
         {

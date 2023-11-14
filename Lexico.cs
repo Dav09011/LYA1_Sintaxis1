@@ -12,6 +12,7 @@ namespace LYA1_Sintaxis1
         const int E = -2;
         private StreamReader archivo;
         protected StreamWriter log;
+        public int linea;
 
         int[,] TRAND =
         {
@@ -59,12 +60,15 @@ namespace LYA1_Sintaxis1
             archivo = new StreamReader("prueba.cpp");
             log = new StreamWriter("prueba.log");
             log.AutoFlush = true;
+            linea = 1;
+            
         }
         public Lexico(string nombre)
         {
             archivo = new StreamReader(nombre);
             log = new StreamWriter("prueba.log");
             log.AutoFlush = true;
+            linea = 1;
         }
         public void Dispose()
         {
@@ -175,12 +179,13 @@ namespace LYA1_Sintaxis1
                     {
                         buffer += c;
                     }
-                    /*else if(estado == "\n"){
-                        linea++;
-                    }*/
+                   
                     else
                     {
                         buffer = "";
+                    }
+                     if(c == '\n'){
+                        linea++;
                     }
                 }
             }
@@ -188,12 +193,12 @@ namespace LYA1_Sintaxis1
             {
                 if (getClasificacion() == Tipos.Numero)
                 {
-                    throw new Error("Lexico: Se espera un digito", log);
+                    throw new Error("Lexico: Se espera un digito", log, linea);
                 }
                 else if (getClasificacion() == Tipos.Cadena)
                 {
 
-                    throw new Error("Lexico: Se espera un \"", log);
+                    throw new Error("Lexico: Se espera un \"", log, linea);
                 }
             }
             else

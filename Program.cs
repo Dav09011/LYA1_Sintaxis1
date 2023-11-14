@@ -5,26 +5,27 @@ using System.Threading.Tasks;
 
 namespace LYA1_Sintaxis1
 {
-    class Program
+    class Program 
     {
-        static void Main(string[] args) 
+        static void Main(string[] args)
         {
             try
             {
-                using (Lenguaje L = new Lenguaje())
+                using (Lenguaje L = new Lenguaje("prueba.cpp"))
                 {
                     L.Programa();
-                    /* 
+                    /*
                     while (!L.FinArchivo())
                     {
                         L.nextToken();
                     }
                     */
                 }
-            } 
+            }
             catch (Exception e)
             {
-                Console.WriteLine("Error "+e.Message);
+                Console.WriteLine("Error " + e.Message);
+                
             }
         }
     }
