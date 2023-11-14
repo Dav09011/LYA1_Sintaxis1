@@ -154,11 +154,11 @@ namespace LYA1_Sintaxis1
             match("scanf");
             match("(");
             match(Tipos.Cadena);
-           
+
             match(",");
             match(Tipos.Caracter);
             match(Tipos.Identificador);
-            
+
             match(")");
             match(";");
         }
@@ -214,7 +214,7 @@ namespace LYA1_Sintaxis1
             if (getContenido() == "else")
             {
                 match("else");
-                if(getContenido() == "{")
+                if (getContenido() == "{")
                 {
                     bloqueInstrucciones();
                 }
@@ -223,7 +223,6 @@ namespace LYA1_Sintaxis1
                     Instruccion();
                 }
             }
-            
         }
 
         //Condicion -> Expresion operadoRelacional Expresion
