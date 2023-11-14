@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 /*
     Requerimiento 1: Printf -> printf(cadena(, Identificador)?);
     Requerimiento 2: Scanf -> scanf(cadena,&Identificador);
+    Requerimiento 3: Agregar a la Asignacion +=, -=, *=. /=, %=
+                     Ejemplo:
+                     Identificador IncrementoTermino Expresion;
+                     Identificador IncrementoFactor Expresion;
+    Requerimiento 4: Agregar el else optativo al if
+    Requerimiento 5: Indicar el número de linea de los errores
 */
 
 namespace LYA1_Sintaxis1
@@ -122,23 +128,20 @@ namespace LYA1_Sintaxis1
             }
         }
         //Printf -> printf(cadena);
-        //Requerimiento 1: Printf -> printf(cadena(, Identificador)?);
         private void Printf()
         {
-            match("printf");
+             match("printf");
             match("(");
             match(Tipos.Cadena);
             if (getContenido() == ",")
             {
                 match(",");
                 match(Tipos.Identificador);
-                //Printf();
             }
             match(")");
             match(";");
         }
         //Scanf -> scanf(cadena);
-        //Requerimiento 2: Scanf -> scanf(cadena,&Identificador);
         private void Scanf()
         {
             match("scanf");
@@ -154,10 +157,71 @@ namespace LYA1_Sintaxis1
             match(";");
         }
 
-        //Asignacion -> identificador = cadena | Expresion;
+        /*Requerimiento 3: Agregar a la Asignacion +=, -=, *=. /=, %=
+                     Ejemplo:
+                     Identificador IncrementoTermino Expresion;
+                     Identificador IncrementoFactor Expresion;
+                     */
         private void Asignacion()
         {
+            match(Tipos.Identificador);
+            if (getClasificacion() == Tipos.OperadorTermino)
+            {
+                match(Tipos.OperadorTermino);
+                
+            }
+            else if (getClasificacion() == Tipos.IncrementoTermino)
+            {
+                match(Tipos.IncrementoTermino);
+                Expresion();
 
+            }
+            else if (getClasificacion() == Tipos.IncrementoFactor)
+            {
+                match(Tipos.IncrementoFactor);
+                Expresion();
+
+            }
+            else
+            {
+                match("=");
+                Expresion();
+            }
+            match(";");
+        }
+        //If -> if (Condicion) instruccion | bloqueInstrucciones 
+        //      (else instruccion | bloqueInstrucciones)?
+        //Requerimiento 4: Agregar el else optativo al if
+        private void If()
+        {
+            match("if");
+            match("(");
+            Condicion();
+            match(")");
+            if (getContenido() == "{")
+            {
+                bloqueInstrucciones();
+            }
+            else
+            {
+                Instruccion();
+            }
+            
+            if (getContenido() == "else")
+            {
+                match("else");
+                bloqueInstrucciones();
+            }
+            else{
+                Instruccion();
+            }
+        }
+        //Condicion -> Expresion operadoRelacional Expresion
+        private void Condicion()
+        {
+            Expresion();
+            match(Tipos.OperadorRelacional);
+            Expresion();
         }
         //While -> while(Condicion) bloque de instrucciones | instruccion
         private void While()
@@ -179,16 +243,6 @@ namespace LYA1_Sintaxis1
         {
 
         }
-        //Condicion -> Expresion operador relacional Expresion
-        private void Condicion()
-        {
-
-        }
-        //If -> if(Condicion) bloque de instrucciones (else bloque de instrucciones)?
-        private void If()
-        {
-
-        }
         //Main      -> void main() bloqueInstrucciones
         private void Main()
         {
@@ -201,27 +255,50 @@ namespace LYA1_Sintaxis1
         //Expresion -> Termino MasTermino
         private void Expresion()
         {
-
+            Termino();
+            MasTermino();
         }
         //MasTermino -> (OperadorTermino Termino)?
         private void MasTermino()
         {
-
+            if (getClasificacion() == Tipos.OperadorTermino)
+            {
+                match(Tipos.OperadorTermino);
+                Termino();
+            }
         }
         //Termino -> Factor PorFactor
         private void Termino()
         {
-
+            Factor();
+            PorFactor();
         }
         //PorFactor -> (OperadorFactor Factor)?
         private void PorFactor()
         {
-
+            if (getClasificacion() == Tipos.OperadorFactor)
+            {
+                match(Tipos.OperadorFactor);
+                Factor();
+            }
         }
         //Factor -> numero | identificador | (Expresion)
         private void Factor()
         {
-
+            if (getClasificacion() == Tipos.Numero)
+            {
+                match(Tipos.Numero);
+            }
+            else if (getClasificacion() == Tipos.Identificador)
+            {
+                match(Tipos.Identificador);
+            }
+            else
+            {
+                match("(");
+                Expresion();
+                match(")");
+            }
         }
     }
 }

@@ -160,19 +160,24 @@ namespace LYA1_Sintaxis1
             int estado = 0;
 
             while (estado >= 0)
-            {
+            { 
                 c = (char)archivo.Peek();
 
                 estado = TRAND[estado, columna(c)];
                 clasificar(estado);
+                
 
                 if (estado >= 0)
                 {
+                    // si el caracter fue enter incrementa la linea
                     archivo.Read();
                     if (estado > 0)
                     {
                         buffer += c;
                     }
+                    /*else if(estado == "\n"){
+                        linea++;
+                    }*/
                     else
                     {
                         buffer = "";

@@ -14,8 +14,24 @@ void main()
     printf("\n============");
     printf("\nRadio = ");
     scanf("%i");
-    printf("Tu resultado es: ",variable);
-    scanf("%d",&suma);
 
-    
+    radio = (3+5)*8-(10-4)/2;
+
+    z = (a+b)*c;
+
+    if ((3+5)*8 > z)
+    {
+        printf("\nEs mayor");
+    }
+
+    if (radio % 2 == 0)
+    {
+        printf("\nRadio es par");
+    }
+    else{
+        printf("No salio nada");
+    }
+
+    multiplicacion *= (3+5)*8-(10-4)/2;
+    suma += (8+9)*4-(2-1)/3;
 }
