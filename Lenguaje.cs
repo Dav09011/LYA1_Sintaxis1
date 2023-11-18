@@ -87,6 +87,7 @@ namespace LYA1_Sintaxis1
             {
                 ListaInstrucciones();
             }
+            log.WriteLine("}");
             match("}");
         }
 
@@ -171,14 +172,17 @@ namespace LYA1_Sintaxis1
         private void Asignacion()
         {
             match(Tipos.Identificador);
-            if (getClasificacion() == Tipos.OperadorTermino)
+            if (getClasificacion() == Tipos.IncrementoTermino)
             {
-                match(Tipos.OperadorTermino);
-            }
-            else if (getClasificacion() == Tipos.IncrementoTermino)
-            {
-                match(Tipos.IncrementoTermino);
-                Expresion();
+                if (getContenido() == "++" || getContenido() == "--")
+                {
+                    match(Tipos.IncrementoTermino);
+                }
+                else
+                {
+                    match(Tipos.IncrementoTermino);
+                    Expresion();
+                }
             }
             else if (getClasificacion() == Tipos.IncrementoFactor)
             {
@@ -233,19 +237,77 @@ namespace LYA1_Sintaxis1
             Expresion();
         }
 
-        //While -> while(Condicion) bloque de instrucciones | instruccion
-        private void While() { }
+        //While -> while(Condicion) bloqueInstrucciones | Instruccion
+        private void While()
+        {
+            match("while");
+            match("(");
+            Condicion();
+            match(")");
+            if (getContenido() == "{")
+            {
+                bloqueInstrucciones();
+            }
+            else
+            {
+                Instruccion();
+            }
+        }
 
-        //Do -> do bloque de instrucciones | intruccion while(Condicion)
-        private void Do() { }
+        //Do -> do bloqueInstrucciones | Intruccion while(Condicion);
+        private void Do()
+        {
+            match("do");
+            if (getContenido() == "{")
+            {
+                bloqueInstrucciones();
+            }
+            else
+            {
+                Instruccion();
+            }
+            match("while");
+            match("(");
+            Condicion();
+            match(")");
+            match(";");
+        }
 
-        //For -> for(Asignacion Condicion; Incremento) Bloque de instruccones | Intruccion
-        private void For() { }
+        //For -> for(Asignacion Condicion; Incremento) BloqueInstrucciones | Intruccion
+        private void For()
+        {
+            match("for");
+            match("(");
+            Asignacion();
+            Condicion();
+            match(";");
+            Incremento();
+            match(")");
+            if (getContenido() == "{")
+            {
+                bloqueInstrucciones();
+            }
+            else
+            {
+                Instruccion();
+            }
+        }
 
         //Incremento -> Identificador ++ | --
-        private void Incremento() { }
+        private void Incremento()
+        {
+            match(Tipos.Identificador);
+            if (getContenido() == "++")
+            {
+                match("++");
+            }
+            else
+            {
+                match("--");
+            }
+        }
 
-        //Main      -> void main() bloqueInstrucciones
+        //Main-> void main() bloqueInstrucciones
         private void Main()
         {
             match("void");
